@@ -1,9 +1,8 @@
 function install
 % Generated with Toolbox Extender https://github.com/ETMC-Exponenta/ToolboxExtender
-dev = ProbabilityAnalysisM4Dev;
+open('ProbabilityAnalysisM4Project.prj');
+dev_on
 dev.test('', false);
 % Post-install commands
-cd('..');
-ext = ProbabilityAnalysisM4Extender;
-ext.doc;
+close(currentProject)
 % Add your post-install commands below
