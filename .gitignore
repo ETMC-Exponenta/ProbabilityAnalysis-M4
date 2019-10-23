@@ -1,7 +1,9 @@
 **/*.asv
-/dev
-/resources
+dev/*
+resources/*
 addVerToPathShort.m
-ProbabilityAnalysisM4Extender.m
+install.m
+installweb.m
+prepare.m
 ProbabilityAnalysis-M4-Dev.mltbx
 *.prj
