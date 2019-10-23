@@ -1,9 +1,9 @@
 **/*.asv
-dev/*
-resources/*
-addVerToPathShort.m
-install.m
-installweb.m
-prepare.m
-ProbabilityAnalysis-M4-Dev.mltbx
-*.prj
+/dev/*
+/resources/*
+/addVerToPathShort.m
+/install.m
+/installweb.m
+/prepare.m
+/ProbabilityAnalysis-M4-Dev.mltbx
+/*.prj
