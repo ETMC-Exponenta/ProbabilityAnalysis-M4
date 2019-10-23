@@ -1,1 +1,7 @@
 **/*.asv
+/dev
+/resources
+addVerToPathShort.m
+ProbabilityAnalysisM4Extender.m
+ProbabilityAnalysis-M4-Dev.mltbx
+*.prj
