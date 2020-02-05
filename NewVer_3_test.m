@@ -41,7 +41,7 @@ r=0.6; rb=0.5; X=Norm_2([5,3]); eval(XbXgXi); Xb + Xg + Xi
 m=2; n=3; rb=0.5; r=0.6; c = 1;A=zeros(N,n*m); for i=1:N eval(zalp_m), A(i,:)=MyCenter(P,[], c);end
 rX=CorrelCoef(A)
 Tr= Ballist('V0,c,teta0',800,0.5,45)
-T=Set(Tr,'V0,c,teta0',500,0.5,45); Xc=Get(Tr,'Xc,tetac ')
+T=Set(Tr,'V0,c,teta0',500,0.5,45); [Xc,tetac]=Get(Tr,'Xc,tetac ')
 T=Set(Tr, 'Yc!',1.2,'Xc!!',1000,'teta0?',{5,[0.2,88]});   Get(T,'teta0,tetac,Yc') 
 t=[];for D=500:250:2000 T=Set(T,'Yc!',1.2,'Xc!!',D,'teta0?',{5,[0.2,88]}); t(end+1)=Get(T,'tetac');end,t
 Th=Set(T, 'V0',400,'Yc!',1000,'tc!!',3,'teta0?',{34,[0.2,88]}); 
