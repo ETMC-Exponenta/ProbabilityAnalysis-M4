@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-   <name>Probability Analysis M4</name>
+   <name>ProbabilityAnalysisM4</name>
    <pname>ProbabilityAnalysisM4.prj</pname>
    <type>toolbox</type>
    <remote>https://github.com/ETMC-Exponenta/ProbabilityAnalysis-M4</remote>
