@@ -57,7 +57,27 @@ rV0=0.227;rteta0=0.6;rc=1.14*c;
 B=[(dLV0*rV0).^2;(dLt0*rteta0).^2;(dLc*rc).^2];E=sum(sqrt(B)); 
 v=200:25:800;Lv= Clc(T,'V0',v,'Xc'); dLV0v=Sensit(T,'Xc|V0',10,'V0',v,10)/10;
 dLcv=Sensit(T,'Xc|c',0.01*c,'V0',v,1);  dLt0v=Sensit(T,'Xc|teta0',0.180/pi,'V0',v,1);   
-B=[(dLV0v*rV0).^2;(dLt0v*rteta0).^2;(dLcv*rc).^2];Ev=sum(sqrt(B)); plot(Lv,Ev,'k')
+B=[(dLV0v*rV0).^2;(dLt0v*rteta0).^2;(dLcv*rc).^2];Ev=sum(sqrt(B)); figure,plot(Lv,Ev,'k')
+R=RAYL(2),C1=Circ(1),C2=C1+[-1.5;-1.5], p = Ver(R,C1,C2),X=Norm_2(R);ShowAll(C1,'Fc',C2,'FEy',X,'r')
+X=Norm_2([1;2],[3,1.5],0.6);R=Rect(2,4); pX = Ver(X,R);ShowAll(R,'Fc',X)
+[Y,alpha] = Rot(X, []), pY=Ver(Y,R)
+R1=RotAx(R, alpha, [1;2]), p1 = Ver( X, R1), ShowAll(R,'Fc', R1, Y,'r',X, 'k') 
+X=NORM(0,2); Y=NORM(0,3); x=Net(X,30,3);y=Net(Y,30,3);
+[xx,yy]=meshgrid(x,y); Z=f(X,xx).* f(Y,yy); surfc(xx,yy,Z)
+X=NORM(0,2); Yx=NORM(0,3); x=Net(X,30,3);y=Net(Yx,30,3);
+[xx,yy]=meshgrid(x,y); Z=f(X,xx).* f(Yx,yy+1.5*xx); surfc(xx,yy,Z), hold on
+for i=[5,10,25] x1=find(xx==x(i));f_1=Z(x1)/f(X,x(i))*0.2; plot3(xx(x1), yy, f_1,'r'),end
+Dx = 25; Dy = 9; Dxg = 0.6*Dx;Dyg = 0.6*Dy; Dxi = 0.4*Dx; Dyi = 0.4*Dy; 
+Xg=Norm_2(sqrt([Dxg, Dyg])), Xi=Norm_2(sqrt([Dxi, Dyi])), R=Rect([5,3])
+Pm30=W2mn(Xg,Xi,R,30)
+rx=Dxg / Dx; ry = Dyg/Dy; r = sqrt(rx*ry); p1 = Ver(Xg+Xi,R); R10 = 1-(1-p1)^30; R11=Ver(Xg,R);
+Rm30 = R11 +sqrt(1 - r^2)*(R10-R11)
+G=1-(1-0.3).^(1:30); W30=W2mn(Xg,Xi,R,30,G)
+[Pm30, pmn]=W2mn(Xg,Xi,R,30); w30 = dot(pmn,G)
+A=[100:300:1000, 1500:500:3000, 5000;  1, 1.1, 1.5, 1.8, 2.5, 3.5, 5, 6.5, 10];
+Z=Norm_2P([3;4], 0.4, A);
+p=[];R = Rect(5,4); LL=500:500:5000; for L = LL X=Z(L); p=[p,Ver(X,R)];end
+plot(LL, p)
 
 disp('^^^^^^^^^^^^^^^^^^^^');
 disp('  реяр гюбепьем 3   ');

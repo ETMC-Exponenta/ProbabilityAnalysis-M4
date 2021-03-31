@@ -43,6 +43,15 @@ E= FLaplas([],0.25)
 p=0.9; X09=m+[-1,1]*FLaplas([],p/2)*sigma
 X=NORM(2,3); p1=Ver(X,[-1,3]), p2=Ver(X, X<3), p3=Ver(X,[-1,2,3;3,4,5]), p4=Ver(X,[-1,2,3;3,4,5]')
 
+%ÑÅÌÈÍÀÐ 4
+S='1 or 2 or 3 and 4 or 5 and 6 and 7 or 8 or 9 and 10';  Lam = [3, 2, 12, 15, 10, 11, 11, 1, 18, 20]/100; 
+E=EXP(Lam);  B=Randevent( Cdf(E, 1)); R1=Set(B, S)
+Ft=[];T=0:0.1:20;for t=T; B=Randevent(Cdf(E, t));Ft(end+1)=Value(Set(B,S));end
+Elem = WEI(T,Ft)
+R_1=Randevent(Cdf(Elem,1))
+R_1=Cdf(Elem,1)
+m=-1; sigma = 2; a=-3; b=2; z1=0; z2=3; X=NORM(m, sigma); Y=RND([a,b]); Z=X+Y; p = Ver(Z,[z1,z2])
+
 disp('^^^^^^^^^^^^^^^^^^^^');
 disp('  ÒÅÑÒ ÇÀÂÅÐØÅÍ 2   ');
 disp('vvvvvvvvvvvvvvvvvvvv');
