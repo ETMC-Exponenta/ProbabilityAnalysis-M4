@@ -94,6 +94,8 @@ X=NORM(0, 0.3, [-0.5,0.5]); AN = X + 10, BN=X+15, CN=X+20, VN = AN*BN*CN, W = V 
 Show( A, 'k', AN, 'r'), figure, Show( V, 'k', VN, 'r'), figure, Show( W, 'r', NORM(6000, 159), 'k.')
 aN = NUM(AN),bN = NUM(BN), cN = NUM(CN), vN=aN*bN*cN
 
+%Seminar
+X=RND(0,pi/2); L=10;Y=FUN('cos(X)*a:a',X,L),pA=Ver(Y,[0,L/2],'1-2/a*x : a',L)
 disp('^^^^^^^^^^^^^^^^^^^^');
 disp('  реяр гюбепьем 4   ');
 disp('vvvvvvvvvvvvvvvvvvvv');
