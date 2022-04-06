@@ -38,7 +38,8 @@ Sy='I1=0:0.001:eps; I2=eps:0.001:a-eps;I3=a-eps:0.1:4;I=[I1,I2,I3];';
 Sf='eval(Sy); fy=[Pdf(R,I1)+Pdf(R,I1+a)+Pdf(R,a-I1),Pdf(R,I2+a)+Pdf(R,a-I2),Pdf(R,a+I3)]; Y=CRV(I, fy);';
 R=RAYL(1.5), a=2;eps = a/3; eval(Sf);Y = CRV('f:',I,fy), P=Ver( Y, Y<1), figure, ShowAll(R,Y), hold on
 R=RAYL(1.5); a=2;eps=a/3;S='abs(R-Sign(R,eps)*a) : a,eps'; Z=FUN(S,R, a, eps); p=Ver(Z,Z<1), Show(Z,'r')
-X=Norm_2([1.5,1.5]); Pnt = Gen(X,20000); A=Modul(Pnt); F = SmartHist(A); U=CRV(F), figure, Show(U)
+X=Norm_2([1.5,1.5]); Pnt = Gen(X,20000); A=Modul(Pnt); F = SmartHist(A); 
+UU=CRV(F), U=DeImpuls(UU, -5), R=RAYL(1.5),figure,Show(R,'k*',UU,'b',U,'2r')
 a=2;eps=a/3; S= 'abs(U-Sign(U,eps)*a) : a,eps';  Y=FUN(S, U, a, eps); p=Ver(Y,Y<1), Show(Y)
 f2=@(x,p1)    -Ver(FUN('abs(Y-Sign(Y,eps)*a) : a,eps', Y, x(1), x(2)), Y<p1);T=1;
 [xmin,fmin] = fminsearch(@(x) f2(x, T),[2,0.5]); a_eps= xmin(1), eps= xmin(2) , P_eps =-fmin
@@ -59,6 +60,7 @@ Si = Facet(Pr), mo = sum(Si)/4
 a=10; beta=pi/4; ksi=45; h=15;  brus=prism(Rect([a a beta]),100);PL=Rot(Plane([0 0 1]),3, beta, 2, ksi);
 [T, brus]=Sect(brus, move(PL,[0;0;40])); 
 [Frag, brus]=Sect(brus, move(PL,[0;0;40-h])); Show(move(T, [0;0;10]), Frag,'FR', move(brus,[0;0;-10]))
+Teta = CRV('cos(x)', [0, pi/2]), Fi = RND([0, 2*pi]) 
 Fs = FUN('ProectS(G,Teta, Fi) : G', Teta, Fi, Frag,500);
 Sa='Mina(frag, Teta,Fi) : frag'; Fa = FUN(Sa, Teta, Fi, Frag,500);
 for r= [0, 0.5, -0.5] X=Norm_2([10;15],[2 4], r); [X1,X2]=X12(X); Y=X1*X2; Show(Y), hold on, end
