@@ -21,6 +21,7 @@ Om=K|B|C1|C2; A={C1,C2,B}; Show(K,'r',A, 'EFc')
 [SA,SAi] = Area(A); P = SA/Area(Om), Pi = SAi/Area(Om), Show(Om,'Hk')
 
 N=5000; Pnt = Gen(Om,N); [M, pop] = Impact(Pnt, A); ps =M/Count(Pnt)
+ShowAll( Pnt, 'y', Pnt(pop), 'r.', A,'b', Om, 'k')
 ShowAll( Pnt, 'y', pop, 'r', A,'b', Om, 'k')
 
 [A,B,C]=Randevent(0.3,0.4,0.5); B=Set(B,C,0.45); D=A+B*C, E=(A+B)*C

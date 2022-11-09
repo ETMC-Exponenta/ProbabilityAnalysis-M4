@@ -42,7 +42,7 @@ X=Norm_2([1.5,1.5]); Pnt = Gen(X,20000); A=Modul(Pnt); F = SmartHist(A);
 UU=CRV(F), U=DeImpuls(UU, -5), R=RAYL(1.5),figure,Show(R,'k*',UU,'b',U,'2r')
 a=2;eps=a/3; S= 'abs(U-Sign(U,eps)*a) : a,eps';  Y=FUN(S, U, a, eps); p=Ver(Y,Y<1), Show(Y)
 f2=@(x,p1)    -Ver(FUN('abs(Y-Sign(Y,eps)*a) : a,eps', Y, x(1), x(2)), Y<p1);T=1;
-[xmin,fmin] = fminsearch(@(x) f2(x, T),[2,0.5]); a_eps= xmin(1), eps= xmin(2) , P_eps =-fmin
+% [xmin,fmin] = fminsearch(@(x) f2(x, T),[2,0.5]); a_eps= xmin(1), eps= xmin(2) , P_eps =-fmin
 a=2;eps=a/3;X=Norm_2([1.5,1.5]);Pnt = Gen(X,20000);A=Modul(Pnt);R = abs(A-Sign(A,eps)*a);
 F = SmartHist(R); Y=CRV(F), P=Ver(Y,Y<1), Show(Y)
 Ind = find(R<1); p=length(Ind)/Count(Pnt), m = mean(R), s = std(R)
