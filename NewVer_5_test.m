@@ -132,14 +132,43 @@ Teta = CRV('cos(x)', [0, pi/2]), Fi = RND([0, 2*pi])
 S = 'b*c*sin(Teta) + a*(c*abs(sin(Fi)) + b*abs(cos(Fi))).*cos(Teta) : a,b,c'; a=9; b=6; c=4;
 Pr3 = FUN(S, Teta, Fi, a, b, c), Show(Pr3, 'F:r')
 p = Ver(Pr3,Pr3<24*1.5)
-A=(a*b*c)^(1/3); C3 = FUN(S,Teta, Fi, A, A, A), Show(Pr3, [25, 70], 'Fk', C3, 'Fr')
+A=(a*b*c)^(1/3); C3 = FUN(S,Teta, Fi, A, A, A, {1000}), Show(Pr3, [25, 70], 'Fk', C3, 'Fr')
 R=para3(9, 6, 4); cub=para3(6, 6, 6); Sq='ProectS(G,Teta, Fi) : G'; 
-Pr_3 = FUN(Sq,Teta, Fi,  R), C_3 = FUN(Sq, Teta, Fi, cub) , hold on, Show(Pr_3, [25, 70], 'Fr.', C_3, 'Fk.')
+Pr_3 = FUN(Sq,Teta, Fi,  R, {1000}), C_3 = FUN(Sq, Teta, Fi, cub, {1000}) , hold on, Show(Pr_3, [25, 70], 'Fr.', C_3, 'Fk.')
 a=6;beta=45;K=para3(a);Pr=K*Affinor(131,beta);Show(Pr+a/2*sin(beta*pi/180),'Fp')
-Z3 = FUN(Sq,Teta, Fi, Pr), Show(Z3, [25, 80], 'Fk')
+Z3 = FUN(Sq,Teta, Fi, Pr, {1000}), Show(Z3, [25, 80], 'Fk')
 a=10; beta=pi/4; ksi=45; h=15;  brus=prism(Rect([a a beta]),100);PL=Rot(Plane([0 0 1]),3, beta, 2, ksi);
 [T, brus]=Sect(brus, move(PL,[0;0;40])); [Frag, brus]=Sect(brus, move(PL,[0;0;40-h])); 
 Show(move(T, [0;0;10]), Frag,'FR', move(brus,[0;0;-10]))
+
+Sy = 'I1=-4:0.01:-a; I2=-a:0.01:a;I3=a:0.01:4;y=[I1,I2,I3]; fy=[dens(X,I1-a),dens(X,I2-a)+dens(X,I2+a),dens(X,I3+a)];';
+X=NORM(0,1); a=sqrt(2/pi); eval(Sy); Y=CRV(y,fy), ShowAll(X,Y, 'r')
+YY=FUN('X-a*Sign(X) : a', X,a), hold on, Show(YY)
+
+X=NORM(10,15);d=30;h=50;b=(h+d)/2;y=0:d;ff=Pdf(X,y-b)+Pdf(X,b-y);F=Cdf(X,y-b)+1-Cdf(X,b-y);
+plot(y, ff, 'k.'), grid, hold on
+h=50; d=30; mx =  10; sx = 15; X = NORM(mx,sx); U=FUN('perecrit(X,h,d) : h,d',X,h,d)
+[f,x] = Pdf(U); plot(x,f,'b')
+
+Teta = CRV('cos(x)', [0, pi/2]), Fi = RND([0, 2*pi]) 
+S = 'b*c*sin(Teta) + a*(c*abs(sin(Fi)) + b*abs(cos(Fi))).*cos(Teta) : a,b,c'; a=9; b=6; c=4;
+Pr3 = FUN(S, Teta, Fi, a, b, c)
+tic, A=(a*b*c)^(1/3); C3 = FUN(S,Teta, Fi, A, A, A,3000), Show(Pr3, [25, 70], 'Fk', C3, 'Fr'), toc
+
+Sy = 'I1=-4:0.01:-a; I2=-a:0.01:a;I3=a:0.01:4;y=[I1,I2,I3]; fy=[dens(X,I1-a),dens(X,I2-a)+dens(X,I2+a),dens(X,I3+a)];';
+X=NORM(0,1); a=sqrt(2/pi); eval(Sy); Y=CRV(y,fy), ShowAll(X,Y, 'r'); T1=[-1,1];[Ver(Y,T1),Ver(X,T1)]
+a0=a; a=a0*2; eval(Sy); Y=CRV(y,fy), hold on, Show(Y, 'k'); [Ver(Y,T1),Ver(Y,T1*2)]
+a=a0/2; eval(Sy); Y=CRV(y,fy), hold on, Show(Y, 'k'); [Ver(Y,T1),Ver(Y,T1*2)]
+R=RAYL(3); a=3; r=2; S = 'abs(R-a) : a'; Z=FUN(S,R,a), p0 = Ver( R, r), p1 = Ver(Z, r)
+Sr='I1=0: 0.1:a;I2=a:0.1:4;r=[I1,I2]; fr=[ Pdf(R,a-I1)+Pdf(R,a+I1),Pdf(R,a+I2)];';
+s=1; R=RAYL(s); a=1*s, eval(Sr); Yr=CRV(r,fr), ShowAll(R,Yr, 'r'); 
+[Ver(R,1),Ver(Yr,Yr<1)]
+S='for i=1:n for j=1:n H(j)=Pdf(X,x1(j),y(i)/x1(j));end,g(i)=Trap(1./abs(x1).*H, x1);end';
+r=0.5;X=Norm_2([10;15],[2 4],r); n=100; [X1,X2]=X12(X); x1=Net(X1, n); y=linspace(0,500, n); g=[];
+eval(S),plot(y, g, 'r'),hold on, Y=X1*X2, Show(Y, 'k.')
+
+r= -0.5; X=Norm_2([10;15],[2 4], r); [X1,X2]=X12(X); Y=X1*X2,eval(S), plot(y, g, 'r'), Show(Y, 'k.')
+H=NORM(5,1); V=Fun(Y,H,'H.*Y')
 
 
 

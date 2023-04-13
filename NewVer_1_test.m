@@ -8,7 +8,7 @@ clear all
 
 N=1000; R=100; M=30; P=HyperGeo(N, R, M, 0:4 )
 R=HyperGeo(N, [], M, 2 )
-P=para3([3,5,9]), Pr=Proect(P,1,30,3,50), Per = Perimeter(Pr), Pnt = Gen(Per,1000, 'lpt')
+P=para3([3,5,9]), Pr=Proect(P,2,30,3,50), Per = Perimeter(Pr), Pnt = Gen(Per,1000, 'lpt')
 Show(P,'FP'), figure, Show(Pr,'k'), figure, ShowAll( Per, 'k', Pnt, 'r' )
 [S, Si] = Area(Pr), A = Area(Per), ver = Si/S
 M = Impact(Pnt,Pr), N=Count(Pnt), R=M/N

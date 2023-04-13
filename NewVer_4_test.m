@@ -24,11 +24,11 @@ X=NORM(0,1); a=aD; eval(Sf), Dmin =SKO(Y)^2, ShowAll(X,'g', Y,'r'), P0=Ver(X,T),
 a=aD/2; eval(Sf), hold on, Show(Y,'r'), P1 =Ver(Y,T), a=aD*2; eval(Sf), Show(Y,'r'), P2 =Ver(Y,T)
 A=aD/2 :0.02:aD*1.5; P=[];for a=A eval(Sf),P(end+1) = Ver(Y,T); end, figure, plot( A,P) 
 [pmax,imax] = max(P); aP = A(imax), Pmax = P(imax)
-S = 'X-sign(X)*a : a'; Y1 = FUN(S,X, aD); popt1=Ver(Y1, T), Y2 = FUN(S,X, aP); popt2=Ver(Y2, T) 
+S = 'X-sign(X)*a : a'; Y1 = FUN(S,X, aD, {3000}); popt1=Ver(Y1, T), Y2 = FUN(S,X, aP, {3000}); popt2=Ver(Y2, T) 
 Sy = 'I1=-4:0.01:-a+e; I2=-a+e:0.01:-e;I3=-e:0.01:e;I4=e:0.01:a-e;I5=a-e:0.01:4;I=[I1,I2,I3,I4,I5];';
 Sf = 'eval(Sy), fy = [f(X,I1-a),f(X,I2-a)+f(X,I2+a),f(X,I3-a)+f(X,I3)+f(X,I3+a), f(X,I4-a)+f(X,I4+a), f(X,I5+a)];';
 X = NORM(0,1); a=sqrt(2/pi); e=0.3; T=[-1,1]*0.75; eval(Sf), Y=CRV(I,fy); 
-S = 'X-Sign(X,eps)*a : a,eps'; Z = FUN(S,X, a, 0.3); pY=Ver(Y,T), pZ=Ver(Z, T), Show(Y,'r', Z, 'k')
+S = 'X-Sign(X,eps)*a : a,eps'; Z = FUN(S,X, a, 0.3, {3000}); pY=Ver(Y,T), pZ=Ver(Z, T), Show(Y,'r', Z, 'k')
 f1=@(x,p0,p1) -Ver(FUN(S, X, x, p0), p1); eps = 0.4; x0 = 1;
 [xmin,fmin] = fminsearch(@(x) f1(x, eps, T), x0); a_eps= xmin,P_eps = -fmin
 
@@ -37,32 +37,32 @@ f2=@(x,p1) -Ver(FUN(S, X, x(1), x(2)), T); x0 = [1, 0.5];
 Sy='I1=0:0.001:eps; I2=eps:0.001:a-eps;I3=a-eps:0.1:4;I=[I1,I2,I3];';
 Sf='eval(Sy); fy=[Pdf(R,I1)+Pdf(R,I1+a)+Pdf(R,a-I1),Pdf(R,I2+a)+Pdf(R,a-I2),Pdf(R,a+I3)]; Y=CRV(I, fy);';
 R=RAYL(1.5), a=2;eps = a/3; eval(Sf);Y = CRV('f:',I,fy), P=Ver( Y, Y<1), figure, ShowAll(R,Y), hold on
-R=RAYL(1.5); a=2;eps=a/3;S='abs(R-Sign(R,eps)*a) : a,eps'; Z=FUN(S,R, a, eps); p=Ver(Z,Z<1), Show(Z,'r')
+R=RAYL(1.5); a=2;eps=a/3;S='abs(R-Sign(R,eps)*a) : a,eps'; Z=FUN(S,R, a, eps,{3000}); p=Ver(Z,Z<1), Show(Z,'r')
 X=Norm_2([1.5,1.5]); Pnt = Gen(X,20000); A=Modul(Pnt); F = SmartHist(A); 
 UU=CRV(F), U=DeImpuls(UU, -5), R=RAYL(1.5),figure,Show(R,'k*',UU,'b',U,'2r')
-a=2;eps=a/3; S= 'abs(U-Sign(U,eps)*a) : a,eps';  Y=FUN(S, U, a, eps); p=Ver(Y,Y<1), Show(Y)
-f2=@(x,p1)    -Ver(FUN('abs(Y-Sign(Y,eps)*a) : a,eps', Y, x(1), x(2)), Y<p1);T=1;
-[xmin,fmin] = fminsearch(@(x) f2(x, T),[2,0.5]); a_eps= xmin(1), eps= xmin(2) , P_eps =-fmin
+a=2;eps=a/3; S= 'abs(U-Sign(U,eps)*a) : a,eps';  Y=FUN(S, U, a, eps,{3000}); p=Ver(Y,Y<1), Show(Y)
+f2=@(x,p1)    -Ver(FUN('abs(Y-Sign(Y,eps)*a) : a,eps', Y, x(1), x(2), {3000}), Y<p1);T=1;
+% [xmin,fmin] = fminsearch(@(x) f2(x, T),[2,0.5]); a_eps= xmin(1), eps= xmin(2) , P_eps =-fmin
 a=2;eps=a/3;X=Norm_2([1.5,1.5]);Pnt = Gen(X,20000);A=Modul(Pnt);R = abs(A-Sign(A,eps)*a);
 F = SmartHist(R); Y=CRV(F), P=Ver(Y,Y<1), Show(Y)
 Ind = find(R<1); p=length(Ind)/Count(Pnt), m = mean(R), s = std(R)
 clear all
 Teta = CRV('cos(x)', [0, pi/2]), Fi = RND([0, 2*pi]) 
 S = 'b*c*sin(Teta) + a*(c*abs(sin(Fi)) + b*abs(cos(Fi))).*cos(Teta) : a,b,c'; a=9; b=6; c=4;
-Pr3 = FUN(S, Teta, Fi, a, b, c, 1000)
-A=(a*b*c)^(1/3); C3 = FUN(S, Teta, Fi, A, A, A,1000), Show(Pr3, [25, 70], 'Fk', C3, 'Fr')
+Pr3 = FUN(S, Teta, Fi, a, b, c, {1000})
+A=(a*b*c)^(1/3); C3 = FUN(S, Teta, Fi, A, A, A,{1000}), Show(Pr3, [25, 70], 'Fk', C3, 'Fr')
 R=para3(9, 6, 4); cub=para3(6, 6, 6); Sq='ProectS(G,Teta, Fi) : G'; 
-Pr_3 = FUN(Sq, Teta, Fi, R,500), C_3 = FUN(Sq, Teta, Fi, cub,500) , Show(Pr_3, [25, 70], 'Fr.', C_3, 'Fk.')
+Pr_3 = FUN(Sq, Teta, Fi, R,{500}), C_3 = FUN(Sq, Teta, Fi, cub,{500}) , Show(Pr_3, [25, 70], 'Fr.', C_3, 'Fk.')
 beta = 45;Pr=cub*Affinor(131,beta); Show(Pr+a/2*sin(beta*pi/180),'Fp')
-Z3 = FUN(Sq,Teta, Fi, Pr,1000), Show(Z3, [25, 80], 'Fk')
+Z3 = FUN(Sq,Teta, Fi, Pr,{1000}), Show(Z3, [25, 80], 'Fk')
 Si = Facet(Pr), mo = sum(Si)/4
 
 a=10; beta=pi/4; ksi=45; h=15;  brus=prism(Rect([a a beta]),100);PL=Rot(Plane([0 0 1]),3, beta, 2, ksi);
 [T, brus]=Sect(brus, move(PL,[0;0;40])); 
 [Frag, brus]=Sect(brus, move(PL,[0;0;40-h])); Show(move(T, [0;0;10]), Frag,'FR', move(brus,[0;0;-10]))
 Teta = CRV('cos(x)', [0, pi/2]), Fi = RND([0, 2*pi]) 
-Fs = FUN('ProectS(G,Teta, Fi) : G', Teta, Fi, Frag,500);
-Sa='Mina(frag, Teta,Fi) : frag'; Fa = FUN(Sa, Teta, Fi, Frag,500);
+Fs = FUN('ProectS(G,Teta, Fi) : G', Teta, Fi, Frag,{500});
+Sa='Mina(frag, Teta,Fi) : frag'; Fa = FUN(Sa, Teta, Fi, Frag,{500});
 for r= [0, 0.5, -0.5] X=Norm_2([10;15],[2 4], r); [X1,X2]=X12(X); Y=X1*X2; Show(Y), hold on, end
 X1=NORM(10,2); X2=NORM(15,4);Z=X1*X2; Show(Z,'b.')
 clear all
