@@ -7,7 +7,7 @@
     <param.summary>Объектная среда для вероятностного анализа в системе MATLAB</param.summary>
     <param.description />
     <param.screenshot>Z:\work\GitHub\см-4.png</param.screenshot>
-    <param.version>0.40</param.version>
+    <param.version>0.41</param.version>
     <param.output>${PROJECT_ROOT}\ProbabilityAnalysisM4.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -93,6 +93,7 @@ dev</param.exclude.filters>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\.git</file>
       <file>${PROJECT_ROOT}\.gitignore</file>
+      <file>${PROJECT_ROOT}\addVerToPath.m</file>
       <file>${PROJECT_ROOT}\addVerToPathShort.m</file>
       <file>${PROJECT_ROOT}\dev</file>
       <file>${PROJECT_ROOT}\Geo</file>
