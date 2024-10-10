@@ -49,15 +49,7 @@ Th=Set(T, 'V0',400,'Yc!',1000,'tc!!',3,'teta0?',{34,[0.2,88]});
 U=100;dH=U*sin(tetac*pi/180);dX=U*cos(tetac*pi/180); 
 TdH=Set(Th,'Yc!',1000-dH,'Xc!', -dX, 'tc!!',3,'teta0?',{3,[0.2,88]},'X0',0);
 [X0, Xc,Vc,teta0,tetac,Yc]=Get(TdH,' X0, Xc,Vc,teta0,tetac,Yc ')
-V0=700; c=0.5; T=Ballist('V0,c', V0 , c); dLV0=Sensit(T,'Xc|V0', 1)
-V0=800;c=0.5;T=Ballist('V0,c,teta0',V0 ,c,45);x = [5:2:47];
-Lt= Clc(T,'teta0',x,'Xc');dLV0=Sensit(T,'Xc|V0',1,'teta0',x,1);plot(x,dLV0)
-dLt0= Sensit(T,'Xc|teta0',0.180/pi,'teta0',x,1); dLc= Sensit(T,'Xc|c',0.01*c,'teta0',x,1);plot(x,dLt0)
-rV0=0.227;rteta0=0.6;rc=1.14*c; 
-B=[(dLV0*rV0).^2;(dLt0*rteta0).^2;(dLc*rc).^2];E=sum(sqrt(B)); 
-v=200:25:800;Lv= Clc(T,'V0',v,'Xc'); dLV0v=Sensit(T,'Xc|V0',10,'V0',v,10)/10;
-dLcv=Sensit(T,'Xc|c',0.01*c,'V0',v,1);  dLt0v=Sensit(T,'Xc|teta0',0.180/pi,'V0',v,1);   
-B=[(dLV0v*rV0).^2;(dLt0v*rteta0).^2;(dLcv*rc).^2];Ev=sum(sqrt(B)); figure,plot(Lv,Ev,'k')
+
 R=RAYL(2),C1=Circ(1),C2=C1+[-1.5;-1.5], p = Ver(R,C1,C2),X=Norm_2(R);ShowAll(C1,'Fc',C2,'FEy',X,'r')
 X=Norm_2([1;2],[3,1.5],0.6);R=Rect(2,4); pX = Ver(X,R);ShowAll(R,'Fc',X)
 [Y,alpha] = Rot(X, []), pY=Ver(Y,R)
